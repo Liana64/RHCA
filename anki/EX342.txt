@@ -1,0 +1,256 @@
+#separator:tab
+#html:true
+#tags column:3
+#deck:EX342 - Linux Diagnostics and Troubleshooting
+What is the recommended troubleshooting order for EX342?	1. Disk, memory<br>2. Timesync<br>3. DNS<br>4. SELinux	EX342::General
+What command generates the man page database?	<code>mandb</code>	EX342::General
+What command searches man pages by keyword?	<code>man -k &lt;keyword&gt;</code>	EX342::General
+What command shows failed systemd units?	<code>systemctl --failed</code>	EX342::General
+What command shows disk usage in human-readable format?	<code>df -h</code>	EX342::General
+What command shows memory usage in megabytes?	<code>free -m</code>	EX342::General
+What command checks NTP and time synchronization status?	<code>timedatectl</code>	EX342::General
+What command shows the current SELinux enforcing status?	<code>getenforce</code>	EX342::General
+What command shows journal errors from the last hour?	<code>journalctl -p err --since "-1h"</code>	EX342::General
+What command shows the 20 most recently installed RPM packages?	<code>rpm -qa --last | head -20</code>	EX342::General
+What command verifies the integrity of all installed RPMs?	<code>rpm -Va</code>	EX342::Packages
+What command shows DNF transaction history?	<code>dnf history</code>	EX342::Packages
+What command shows the last 20 user logins?	<code>last -n 20</code>	EX342::General
+What command shows user account information (UID, GID, groups)?	<code>id &lt;user&gt;</code>	EX342::General
+What command provides SELinux troubleshooting suggestions for a given alert ID?	<code>sealert -l &lt;id&gt;</code>	EX342::SELinux
+What command checks which processes are using a specific path?	<code>lsof | grep /some/path</code>	EX342::General
+What command shows the full process tree?	<code>ps fax</code>	EX342::General
+How do you verify all mount points in <code>/etc/fstab</code>?	<code>findmnt --verify</code><br><code>mount -a -v</code><br><code>systemctl daemon-reload</code>	EX342::Filesystem
+What does the <code>nofail</code> mount option do in fstab?	Prevents boot failure if the device is missing and saves two minutes during boot.	EX342::Filesystem
+What does the <code>_netdev</code> mount option do in fstab?	Requires the network to be available before attempting the mount (used for iSCSI, NFS, etc.).	EX342::Filesystem
+What file contains the filesystem mount table?	<code>/etc/fstab</code>	EX342::KeyPaths
+What file contains the mount table for encrypted (LUKS) volumes?	<code>/etc/crypttab</code>	EX342::KeyPaths
+What file controls password policy defaults?	<code>/etc/login.defs</code>	EX342::KeyPaths
+Where are LVM backups stored?	<code>/etc/lvm/backup</code> (latest) and <code>/etc/lvm/archive</code> (history)	EX342::KeyPaths
+What file controls DNS name resolution configuration?	<code>/etc/resolv.conf</code>	EX342::KeyPaths
+What file controls the order of name resolution methods (e.g., files, DNS)?	<code>/etc/nsswitch.conf</code>	EX342::KeyPaths
+Where is the firewalld configuration file?	<code>/etc/firewalld/firewalld.conf</code>	EX342::KeyPaths
+Where is the initramfs (dracut) configuration?	<code>/etc/dracut.conf</code>	EX342::KeyPaths
+Where is the kdump configuration?	<code>/etc/kdump.conf</code>	EX342::KeyPaths
+Where is the journald configuration?	<code>/etc/systemd/journald.conf</code>	EX342::KeyPaths
+Where is the SSH server configuration?	<code>/etc/ssh/sshd_config</code> (with drop-ins in <code>/etc/ssh/sshd_config.d/</code>)	EX342::KeyPaths
+Where are kernel tuning parameters configured persistently?	<code>/etc/sysctl.conf</code> and <code>/etc/sysctl.d/</code>	EX342::KeyPaths
+Where are custom kernel module options specified?	<code>/etc/modprobe.d/</code> (e.g., <code>options cdrom debug=1</code>)	EX342::KeyPaths
+Where are RHEL 8 network configuration scripts?	<code>/etc/sysconfig/network-scripts</code>	EX342::KeyPaths
+Where are kernel crash dumps stored?	<code>/var/crash</code>	EX342::KeyPaths
+What log file contains cron job logs?	<code>/var/log/cron</code>	EX342::KeyPaths
+What log file contains PAM/authentication logs?	<code>/var/log/secure</code>	EX342::KeyPaths
+What log file contains SELinux/auditd logs?	<code>/var/log/audit/audit.log</code>	EX342::KeyPaths
+Where is the RPM database stored?	<code>/var/lib/rpm</code>	EX342::KeyPaths
+Where do systemd vendor-provided unit files live vs. admin overrides?	Vendor: <code>/usr/lib/systemd/system</code><br>Overrides: <code>/etc/systemd/system</code><br>Runtime: <code>/run/systemd/system</code>	EX342::KeyPaths
+How do you view kernel module parameters at runtime (e.g., for amdgpu)?	<code>/sys/module/amdgpu/parameters</code>	EX342::KeyPaths
+What file controls the swappiness kernel parameter?	<code>/proc/sys/vm/swappiness</code>	EX342::KeyPaths
+What file shows IP forwarding status?	<code>/proc/sys/net/ipv4/ip_forward</code>	EX342::KeyPaths
+In the permissions table, what does the hex value <b>4</b> mean for files vs. directories?	Files: Read (open)<br>Directories: List files	EX342::Permissions
+In the permissions table, what does the hex value <b>2</b> mean for files vs. directories?	Files: Write (modify)<br>Directories: Create or delete files in the directory	EX342::Permissions
+In the permissions table, what does the hex value <b>1</b> mean for files vs. directories?	Files: Execute (run)<br>Directories: Change into the directory (<code>cd</code>)	EX342::Permissions
+What does SUID (Set User ID) do on a file?	Runs the file as the file's owner. This is very dangerous.	EX342::Permissions
+What does SGID (Set Group ID) do on a directory?	New files in the directory inherit the directory's group owner. <b>Do not set recursively!</b>	EX342::Permissions
+What does the sticky bit do on a directory?	Files in the directory can only be removed by their owner.	EX342::Permissions
+What commands manage file attributes (beyond standard permissions)?	<code>chattr</code> (change attributes) and <code>lsattr</code> (list attributes)	EX342::Permissions
+What are the steps to create a LUKS encrypted partition?	1. <code>fdisk /dev/partition</code> — create partition<br>2. <code>cryptsetup luksFormat</code> — encrypt<br>3. <code>cryptsetup luksOpen /dev/device name</code> — open mapper<br>4. <code>mkfs /dev/mapper/name</code> — create filesystem<br>5. <code>mount /dev/mapper/name /mnt</code> — mount	EX342::LUKS
+How do you check used LUKS key slots?	<code>cryptsetup luksDump /dev/device</code>	EX342::LUKS
+How do you add a new LUKS key?	<code>cryptsetup luksAddKey /dev/device</code>	EX342::LUKS
+How do you remove a LUKS key from a specific slot?	<code>cryptsetup luksKillKey /dev/device slot</code>	EX342::LUKS
+What are the steps to back up a LUKS header?	1. <code>umount /mountpoint</code><br>2. <code>cryptsetup luksClose /dev/mapper/name</code><br>3. <code>cryptsetup luksHeaderBackup /dev/device --header-backup-file /root/backupfile</code>	EX342::LUKS
+How do you restore a LUKS header from backup?	<code>cryptsetup luksHeaderRestore /dev/device --header-backup-file /root/backupfile</code>	EX342::LUKS
+How do you view the first 512 bytes (MBR) of a disk?	<code>xxd /dev/device -l 512</code>	EX342::Filesystem
+How do you recreate a PV with a specific UUID from an LVM backup?	<code>pvcreate --uuid "&lt;SAME_UUID&gt;" --restorefile /etc/lvm/archive/VG_SOME.vg /dev/device</code>	EX342::LVM
+How do you restore a VG configuration from backup?	<code>vgcfgrestore -f /etc/lvm/archive/some_archive.vg vg</code>	EX342::LVM
+How do you activate a logical volume after restoring?	<code>lvchange --activate y somevg/somelv</code>	EX342::LVM
+How do you repair an XFS filesystem?	<code>umount /device</code><br><code>xfs_repair /device</code> (must be unmounted first)	EX342::Filesystem
+How do you check and repair an ext3/ext4 filesystem?	<code>e2fsck -n /dev/device</code> (check only)<br>Use <code>dumpe2fs /device</code> to find superblocks, then<br><code>e2fsck -n /dev/device -b 32768</code> to restore with alternate superblock (multiples of 8192)	EX342::Filesystem
+What command shows BIOS, DIMM, and motherboard info?	<code>dmidecode</code>	EX342::Hardware
+What command shows disk hardware info?	<code>hdparm -I /dev/sda</code>	EX342::Hardware
+What commands list device mapper devices and their details?	<code>dmsetup ls</code> — list all<br><code>dmsetup table /dev/mapper/device</code> — show table<br><code>dmsetup info /dev/mapper/device</code> — show properties	EX342::Hardware
+What command lists loaded kernel modules?	<code>lsmod</code>	EX342::Kernel
+How do you enable and disable kernel modules?	Enable: <code>modprobe module_name</code><br>Disable: <code>modprobe -r module_name</code><br>Check dependencies: <code>depmod</code>	EX342::Kernel
+What command shows kernel driver info for PCI devices?	<code>lspci -k</code>	EX342::Kernel
+What is <code>mcelog</code> used for, and how do you enable it?	Machine Check Exception logging for hardware errors.<br><code>systemctl enable --now mcelog</code><br>View: <code>journalctl -u mcelog.service</code>	EX342::Hardware
+What is <code>rasdaemon</code> used for, and how do you check its output?	Hardware error monitoring (requires <code>edac_mc</code> module).<br><code>systemctl enable --now rasdaemon</code><br><code>ras-mc-ctl --errors</code> and <code>ras-mc-ctl --status</code>	EX342::Hardware
+How do you install and enable Cockpit?	<code>dnf install -y cockpit</code><br><code>systemctl enable --now cockpit.socket</code><br><code>firewall-cmd --permanent --add-service cockpit</code><br><code>firewall-cmd --reload</code><br>Access on port 9090.	EX342::General
+How do you set up persistent journal logs?	1. Add <code>Storage=persistent</code> to <code>/etc/systemd/journald.conf</code><br>2. <code>mkdir -p /var/log/journal</code><br>3. <code>chown root:systemd-journal /var/log/journal</code><br>4. <code>chmod 2755 /var/log/journal</code><br>5. <code>killall -USR1 systemd-journald</code>	EX342::Logging
+What journalctl command shows errors for a specific unit?	<code>journalctl -u unit -p err</code>	EX342::Logging
+How do you show journal logs from a specific time range?	<code>journalctl -u unit --since "2025-01-01 10:00:00" --until "2025-01-01 12:00:00"</code>	EX342::Logging
+What does <code>journalctl -xb</code> do?	Shows journal logs from the last boot with extended explanations.	EX342::Logging
+How do you troubleshoot SELinux via journald?	<code>journalctl -t setroubleshoot</code>	EX342::SELinux
+In rsyslog, what is the difference between <code>@@</code> and <code>@</code> when forwarding logs?	<code>@@</code> = TCP (e.g., <code>*.* @@remote:514</code>)<br><code>@</code> = UDP (e.g., <code>*.* @remote:514</code>)	EX342::Logging
+How do you create an auditd rule to monitor the <code>/etc/passwd</code> file for permission changes?	<code>auditctl -a always,exit -F arch=b64 -F path=/etc/passwd -F perm=wa</code>	EX342::Logging
+How do you create an auditd rule to monitor a directory for a specific syscall?	<code>auditctl -a always,exit -F arch=b64 -F dir=/etc/sysconfig -S openat</code>	EX342::Logging
+How do you persist auditctl rules?	<code>auditctl -l >> /etc/audit/rules.d/audit.rules</code>	EX342::Logging
+How do you search for recent SELinux AVC messages in auditd?	<code>ausearch -m avc -ts recent</code>	EX342::SELinux
+How do you convert an epoch timestamp to a human-readable date?	<code>date -d @&lt;epoch_timestamp&gt;</code>	EX342::General
+How do you enable kernel crash dumps (kdump)?	1. <code>grubby --update-kernel=ALL --args="crashkernel=256M"</code><br>2. <code>reboot</code><br>3. <code>systemctl enable --now kdump.service</code><br>Verify: <code>cat /proc/cmdline</code> (should contain <code>crashkernel=</code>)	EX342::Kernel
+How do you set or unset an SELinux boolean persistently?	<code>setsebool -P &lt;boolean&gt; on</code> or <code>off</code><br>List all: <code>getsebool -a</code>	EX342::SELinux
+How do you add an SELinux port type?	<code>semanage port -a -t &lt;type&gt; -p tcp &lt;port&gt;</code><br>List all: <code>semanage port -l</code>	EX342::SELinux
+How do you set a custom SELinux file context and apply it?	<code>semanage fcontext -a -t &lt;type&gt; '/some/path(/.*)?'</code><br><code>restorecon -Rv /some/path</code>	EX342::SELinux
+How do you trigger a full SELinux relabel at next boot?	<code>fixfiles -F onboot</code> (with <code>enforcing=0</code> in kernel args)	EX342::SELinux
+What command searches for SELinux deny rules?	<code>sesearch -D</code>	EX342::SELinux
+How do you show SELinux aliases for a context type?	<code>seinfo -t httpd_sys_content_t</code>	EX342::SELinux
+How do you show SELinux rules for a specific port?	<code>seinfo --portcon=443 --tcp</code>	EX342::SELinux
+How do you show SELinux allow rules associated with a boolean?	<code>sesearch --allow -b httpd_can_connect_ldap</code>	EX342::SELinux
+How do you use strace to trace a running process?	<code>strace -fvttTyy -s 256 -o /tmp/strace.txt -p PID</code><br>Flags: follow forks, verbose, timestamps, per-call timing, resolve paths/sockets, 256 char strings	EX342::Performance
+How do you use strace to find file-not-found or permission errors?	<code>strace -e openat "ls -l" 2>&1 | grep -E 'ENOENT|EACCES'</code>	EX342::Performance
+What does <code>strace -c</code> do?	Counts syscalls and errors per syscall type (summary mode).	EX342::Performance
+What is the difference between strace and ltrace?	<code>strace</code> traces kernel system calls.<br><code>ltrace</code> traces userspace library calls only (lighter weight).	EX342::Performance
+How do you check for memory leaks with valgrind?	<code>dnf install -y valgrind</code><br><code>valgrind --tool=memcheck &lt;some_binary&gt;</code>	EX342::Performance
+What command shows kernel slab/page cache memory usage?	<code>slabtop</code>	EX342::Performance
+How do you install and enable Performance Co-Pilot (PCP)?	<code>dnf install -y pcp pcp-doc pcp-system-tools</code><br><code>systemctl enable --now pmcd</code><br>List variables: <code>pminfo</code><br>Read value: <code>pmval variable</code>	EX342::Performance
+What does the systemd directive <code>Requires=</code> do?	Starts the specified unit(s) when this unit starts. If the required unit fails to start, this unit also fails.	EX342::Systemd
+What does the systemd directive <code>Wants=</code> do?	Requests that the specified unit(s) start, but does <b>not</b> fail if they don't start.	EX342::Systemd
+What does the systemd directive <code>Requisite=</code> do?	Requires the specified unit(s) to already be running. Fails immediately if they are not.	EX342::Systemd
+What does the systemd directive <code>Conflicts=</code> do?	Stops all specified units when this unit is started.	EX342::Systemd
+What is the difference between <code>Before=</code> and <code>After=</code> in systemd?	<code>Before=</code> ensures this unit loads before the specified unit(s).<br><code>After=</code> ensures this unit loads after the specified unit(s).	EX342::Systemd
+How do you set the default systemd target to multi-user?	<code>systemctl set-default multi-user.target</code>	EX342::Systemd
+What commands help identify slow boot services?	<code>systemd-analyze blame</code> — list slow units<br><code>systemd-analyze critical-chain</code> — longest dependency path	EX342::Systemd
+How do you mask a systemd unit so it cannot be started?	<code>systemctl mask target.unit</code>	EX342::Systemd
+What does <code>systemctl isolate rescue.target</code> do?	Stops all units not required by rescue.target and switches to single-user rescue mode.	EX342::Systemd
+What is the debug-shell.service and why is it dangerous?	<code>systemctl enable debug-shell.service</code> enables a virtual console on <b>tty9</b> with a logged-in root shell. Always disable when done!	EX342::Systemd
+How do you view GRUB bootloader entries on RHEL 8?	<code>ls -l /boot/loader/entries/*.conf</code>	EX342::Boot
+How do you add kernel arguments to all kernels using grubby?	<code>grubby --args="rd.shell" --update-kernel=ALL</code>	EX342::Boot
+How do you remove kernel arguments from a specific kernel?	<code>grubby --remove-args="rhgb quiet" --update-kernel /boot/vmlinuz-[Tab]</code>	EX342::Boot
+What does <code>rd.shell</code> do as a kernel argument?	Drops to a shell if initramfs fails.	EX342::Boot
+What are the four boot interrupt options from the GRUB menu (added to the "linux" line)?	1. <code>rd.break</code> — break before root is mounted<br>2. <code>systemd.unit=rescue.target</code> — single-user with local FS<br>3. <code>systemd.unit=emergency.target</code> — minimal, root FS read-only<br>4. <code>init=/bin/bash</code> — bypass systemd entirely	EX342::Boot
+After using <code>rd.break</code>, how do you get a writable root filesystem?	<code>mount -o remount,rw /sysroot</code><br><code>chroot /sysroot</code>	EX342::Boot
+After resetting the root password in rescue mode, what must you do for SELinux?	Either <code>touch /.autorelabel</code> or <code>restorecon -v /etc/shadow</code> to ensure correct SELinux contexts.	EX342::Boot
+How do you boot from a GRUB prompt (manual boot sequence)?	1. <code>insmod xfs; insmod lvm; insmod ext4</code><br>2. <code>ls</code> and <code>ls (hd0,gpt1)/</code><br>3. <code>set root=(lvm/fedora-root)</code><br>4. <code>linux (hd0,gpt1)/vmlinuz-[Tab] root=/dev/fedora/root</code><br>5. <code>initrd (hd0,gpt1)/initramfs[Tab]</code><br>6. <code>boot</code>	EX342::Boot
+How do you manage UEFI boot targets?	<code>efibootmgr -v</code> — view boot entries (active one is marked)<br><code>efibootmgr -n 1a</code> — boot into entry 1a next time	EX342::Boot
+What command collects a system diagnostic report for Red Hat support?	<code>sos report --batch</code>	EX342::Support
+How do you run sos report with only specific plugins?	<code>sos report --only-plugins=networking,filesys</code>	EX342::Support
+What is the symptom of a corrupt RPM database?	<code>rpm -qa</code> shows few or no packages.	EX342::Packages
+How do you rebuild a corrupt RPM database?	1. <code>cp -a /var/lib/rpm /var/lib/rpm.bak</code> (backup!)<br>2. <code>rpm -v --rebuilddb</code><br>3. <code>restorecon -Rv /var/lib/rpm</code> — <b>CRITICAL: restore SELinux context!</b>	EX342::Packages
+How do you find which RPM package owns a file?	<code>rpm -qf /some/file</code>	EX342::Packages
+How do you show all dependencies for an RPM package?	<code>rpm -qR package</code>	EX342::Packages
+How do you find which RPM package provides a specific library?	<code>dnf provides '*/libssl.so*'</code>	EX342::Packages
+How do you undo a specific DNF transaction?	<code>dnf history undo ID</code>	EX342::Packages
+What commands refresh the DNF cache?	<code>dnf clean all</code><br><code>dnf makecache</code>	EX342::Packages
+How do you show IPv4 addresses only?	<code>ip -4 a</code>	EX342::Network
+How do you test DNS resolution?	<code>dig somedomain</code>	EX342::Network
+How do you test MTU with ping?	<code>ping -s 1472 -M do &lt;IP&gt;</code>	EX342::Network
+How do you create a network bond with active-backup mode?	<code>nmcli con add type bond con-name bond0 ifname bond0 bond.options "mode=active-backup,miimon=100"</code>	EX342::Network
+How do you list nftables rules?	<code>nft list ruleset</code>	EX342::Network
+How do you check if a firewalld service is enabled?	<code>firewall-cmd --query-service=http</code>	EX342::Network
+How do you add a permanent firewalld service rule?	<code>firewall-cmd --add-service=http --permanent</code><br><code>firewall-cmd --reload</code>	EX342::Network
+How do you capture network traffic with tcpdump?	<code>tcpdump -i wlp192s0 -c 128 -w /root/capture.pcap</code><br>(128 packets, write to file)	EX342::Network
+What does <code>ss -tuna</code> show?	Lists all TCP and UDP sockets (listening and established), showing numeric addresses.	EX342::Network
+How do you check for missing shared library dependencies?	<code>ldd $(which &lt;binary&gt;) | grep "not found"</code>	EX342::Applications
+What command rebuilds the shared library cache?	<code>ldconfig</code>	EX342::Applications
+How do you find the SONAME of a shared library?	<code>objdump -p /lib64/libssl.so</code> (look for SONAME)	EX342::Applications
+What command verifies the SELinux context of a path against policy?	<code>matchpathcon -V /some/path</code>	EX342::SELinux
+Where is the NUMA topology visible in the proc/sys filesystem?	<code>/sys/devices/system/node</code>	EX342::Hardware
+What does <code>systemctl show unit</code> do?	Shows all properties and parameters of a systemd unit.	EX342::Systemd
+What command shows scripts executed by an RPM package during install/removal?	<code>rpm -qp --scripts package.rpm</code>	EX342::Packages
+How do you reinstall GRUB2 for a UEFI system?	<code>dnf reinstall grub2-efi-x64 shim-x64</code>	EX342::Boot
+What file contains the list of all services and their port numbers?	<code>/etc/services</code>	EX342::KeyPaths
+What file contains the iSCSI initiator name?	<code>/etc/iscsi/initiatorname.iscsi</code>	EX342::KeyPaths
+How do you watch a specific process's memory usage over time?	<code>watch cat /proc/PID/status</code> (look for VmRSS, VmSize)	EX342::Performance
+What is the correct order of steps when repairing an XFS filesystem?	1. <code>umount /dev/device</code> (must be unmounted)<br>2. <code>xfs_repair -n /dev/device</code> (check only, no-modify mode)<br>3. <code>xfs_repair /dev/device</code> (actual repair)<br>If prompted to replay log: mount and unmount first, then re-run repair.	EX342::Filesystem::XFS
+What does <code>xfs_repair -n</code> do?	Runs in no-modify (dry-run) mode — scans the filesystem and reports what repairs would be made without actually changing anything. Similar to <code>fsck -n</code>.	EX342::Filesystem::XFS
+What does <code>xfs_repair -L</code> do and when should you use it?	Forces log zeroing even if the log is dirty. This is a <b>last resort</b> — it may cause data loss. Use only when the filesystem cannot be mounted to replay the log normally.	EX342::Filesystem::XFS
+What is <code>xfs_metadump</code> used for?	Copies XFS filesystem metadata (not data) to a file for debugging. Used when <code>xfs_repair</code> fails and you need to send a metadata image for analysis.<br><code>xfs_metadump /dev/device /path/to/file.metadump</code>	EX342::Filesystem::XFS
+How do you restore and test a metadump image?	<code>xfs_mdrestore /path/to/file.metadump /path/to/file.img</code><br><code>losetup --show --find /path/to/file.img</code><br><code>xfs_repair /dev/loop0</code><br><code>mount /dev/loop0 /mnt</code><br>This lets you test repairs on a copy before touching the original.	EX342::Filesystem::XFS
+What causes <code>xfs_repair</code> to refuse to run?	It cannot repair a filesystem with a dirty journal log. You must either mount and unmount the filesystem to replay the log, or use <code>-L</code> to force-zero the log (destructive).	EX342::Filesystem::XFS
+How can you safely repair a corrupted root XFS filesystem?	Boot from a rescue/installation ISO into Anaconda Rescue Mode or use <code>systemd.unit=emergency.target</code>, then unmount root (<code>umount /sysroot</code>) and run <code>xfs_repair /dev/rootdevice</code>.	EX342::Filesystem::XFS
+What does <code>xfs_repair -d</code> do?	Allows <code>xfs_repair</code> to work on a mounted filesystem in a <b>read-only</b> state. Useful when you cannot unmount the partition (e.g., root filesystem in emergency mode).	EX342::Filesystem::XFS
+How do you find the alternate superblock locations on an ext4 filesystem?	<code>dumpe2fs /dev/device | grep -i superblock</code><br>Superblocks are at multiples of 8192 (e.g., 32768, 98304, 163840).	EX342::Filesystem::Ext
+How do you repair an ext4 filesystem using an alternate superblock?	<code>e2fsck -b 32768 /dev/device</code><br>Replace 32768 with any valid alternate superblock location from <code>dumpe2fs</code>.	EX342::Filesystem::Ext
+What is the difference between <code>e2fsck -n</code> and <code>e2fsck -y</code>?	<code>-n</code>: Read-only check, answers "no" to all repair questions.<br><code>-y</code>: Answers "yes" to all repair questions (auto-repair). Use <code>-y</code> only when you're certain you want automated fixes.	EX342::Filesystem::Ext
+How do you use <code>ddrescue</code> to salvage data from a failing disk before repair?	<code>ddrescue -f -n /dev/failing_device /path/to/rescued.img rescue.log</code><br>This copies as much data as possible, skipping bad sectors initially. Then repair the image instead of the original.	EX342::Filesystem::Recovery
+What are the steps to recover a broken LVM configuration from backup?	1. <code>xxd /dev/device -l 512</code> — inspect disk header<br>2. <code>fdisk /dev/device</code> — recreate partitions if needed<br>3. <code>pvcreate --uuid "&lt;UUID&gt;" --restorefile /etc/lvm/archive/VG.vg /dev/device</code><br>4. <code>vgcfgrestore -f /etc/lvm/archive/VG.vg vgname</code><br>5. <code>lvchange --activate y vgname/lvname</code>	EX342::LVM::Recovery
+Where does LVM store its backup and archive files?	Backups: <code>/etc/lvm/backup/</code> (latest config per VG)<br>Archives: <code>/etc/lvm/archive/</code> (timestamped history of all VG changes)	EX342::LVM::Recovery
+How do you list available LVM VG archives for restoration?	<code>vgcfgrestore -l vgname</code><br>Shows all archived configurations with timestamps.	EX342::LVM::Recovery
+What does <code>pvck</code> do?	Checks the consistency of LVM physical volume metadata. Useful for diagnosing PV-level corruption.	EX342::LVM::Recovery
+Why must the UUID be preserved when recreating a PV for LVM recovery?	LVM identifies PVs by UUID, not device name. If you recreate a PV with a new UUID, the VG restoration will fail because it expects the original UUID.	EX342::LVM::Recovery
+How do you find the original PV UUID from an LVM archive?	<code>grep -A5 "physical_volumes" /etc/lvm/archive/VG_*.vg</code><br>or examine the archive file directly — the UUID is listed under each PV definition.	EX342::LVM::Recovery
+What should you check if an LV won't activate after VG restore?	1. <code>pvs</code> and <code>vgs</code> — verify PV/VG status<br>2. <code>lvs -a</code> — check LV attributes<br>3. <code>vgchange -ay vgname</code> — try activating all LVs<br>4. Check <code>dmesg</code> for device mapper errors	EX342::LVM::Recovery
+What does the <code>cryptsetup luksFormat</code> command do?	Creates a LUKS encryption header on a partition or device, destroying all existing data. You'll be prompted for a passphrase.	EX342::LUKS::Recovery
+How do you open a LUKS device when you only have a keyfile?	<code>cryptsetup luksOpen /dev/device mapper_name --key-file /path/to/keyfile</code>	EX342::LUKS::Recovery
+How do you verify a LUKS header backup without restoring it?	<code>cryptsetup luksOpen /dev/device testname --header /root/backupfile</code><br>If it opens successfully with the correct passphrase, the backup is valid.	EX342::LUKS::Recovery
+What happens if you lose all LUKS key slots and have no header backup?	The data is <b>permanently unrecoverable</b>. LUKS encryption is designed so that without a valid key slot or header backup, decryption is impossible.	EX342::LUKS::Recovery
+How do you check which LUKS key slots are in use?	<code>cryptsetup luksDump /dev/device</code><br>Shows all 8 key slots (0-7) and which ones are ENABLED vs DISABLED.	EX342::LUKS::Recovery
+What is the correct entry format for <code>/etc/crypttab</code>?	<code>mapper_name  /dev/device  /path/to/keyfile  options</code><br>Example: <code>myluks  /dev/sdb1  /root/keyfile  luks</code><br>Use <code>none</code> instead of keyfile path to prompt for passphrase at boot.	EX342::LUKS::Recovery
+How do you list device mapper targets of type crypt?	<code>dmsetup ls --target crypt</code><br>Shows all active LUKS/dm-crypt mappings.	EX342::LUKS::Recovery
+What package provides the iSCSI initiator on RHEL 8?	<code>iscsi-initiator-utils</code>	EX342::iSCSI
+What package provides the iSCSI target on RHEL 8?	<code>targetcli</code>	EX342::iSCSI
+Where is the iSCSI initiator name configured?	<code>/etc/iscsi/initiatorname.iscsi</code><br>This IQN must match the ACL on the target exactly.	EX342::iSCSI
+Where is the iSCSI initiator daemon configuration?	<code>/etc/iscsi/iscsid.conf</code><br>Contains CHAP auth settings, timeouts, and startup behavior.	EX342::iSCSI
+How do you discover iSCSI targets?	<code>iscsiadm -m discovery -t sendtargets -p &lt;target_ip&gt;:3260</code>	EX342::iSCSI
+How do you discover iSCSI targets with debug output?	<code>iscsiadm -m discovery -t sendtargets -p &lt;target_ip&gt;:3260 -d 8</code><br>The <code>-d 8</code> flag enables maximum debug output for troubleshooting.	EX342::iSCSI
+How do you log in to an iSCSI target?	<code>iscsiadm -m node -T &lt;target_iqn&gt; -p &lt;target_ip&gt;:3260 --login</code>	EX342::iSCSI
+How do you log out of an iSCSI target?	<code>iscsiadm -m node -T &lt;target_iqn&gt; -p &lt;target_ip&gt;:3260 --logout</code><br>or <code>iscsiadm -m node -T &lt;target_iqn&gt; -u</code>	EX342::iSCSI
+How do you view active iSCSI sessions with full detail?	<code>iscsiadm -m session -P 3</code><br>Shows session state, negotiated parameters, and attached SCSI devices. Use <code>-P 0</code> for minimal sid-to-node mapping.	EX342::iSCSI
+How do you rescan iSCSI sessions?	<code>iscsiadm -m session -r &lt;session_id&gt; --rescan</code><br>or rescan all: <code>iscsiadm -m session --rescan</code>	EX342::iSCSI
+How do you find the SCSI device name after iSCSI login?	<code>grep "Attached SCSI" /var/log/messages</code><br>or <code>lsscsi</code> to list all SCSI devices including iSCSI LUNs.	EX342::iSCSI
+How do you configure CHAP authentication for an iSCSI initiator?	Edit <code>/etc/iscsi/iscsid.conf</code>:<br><code>node.session.auth.authmethod = CHAP</code><br><code>node.session.auth.username = myuser</code><br><code>node.session.auth.password = mypassword</code><br>Or update per-node with <code>iscsiadm -m node -T ... -o update -n node.session.auth.authmethod -v CHAP</code>	EX342::iSCSI
+What are the three most common causes of iSCSI login failures?	1. <b>Network connectivity</b> — firewall blocking port 3260/tcp<br>2. <b>IQN mismatch</b> — initiator name doesn't match target ACL<br>3. <b>CHAP misconfiguration</b> — wrong username/password or auth not enabled	EX342::iSCSI
+How do you view and verify the iSCSI target configuration on the server?	<code>targetcli ls</code><br>Shows the full tree: backstores, iSCSI targets, TPGs, LUNs, ACLs, and portals.	EX342::iSCSI
+What services must be enabled for iSCSI to reconnect on reboot?	Initiator: <code>systemctl enable iscsid iscsi</code><br>Target: <code>systemctl enable target</code><br>Also ensure the fstab entry for iSCSI mounts includes <code>_netdev</code>.	EX342::iSCSI
+What firewall port must be open for iSCSI?	TCP port <b>3260</b><br><code>firewall-cmd --permanent --add-port=3260/tcp</code><br><code>firewall-cmd --reload</code>	EX342::iSCSI
+Where are iSCSI node discovery records stored locally?	<code>/var/lib/iscsi/nodes/</code> — contains per-target configuration<br><code>/var/lib/iscsi/send_targets/</code> — contains discovery records	EX342::iSCSI
+How do you delete all discovered iSCSI node records and start fresh?	<code>iscsiadm -m node -o delete</code><br>or remove specific: <code>iscsiadm -m node -T &lt;iqn&gt; -p &lt;ip&gt; -o delete</code>	EX342::iSCSI
+What are the four PAM module types (management groups)?	1. <b>auth</b> — authenticates the user (verifies identity)<br>2. <b>account</b> — checks account validity (expiration, access restrictions)<br>3. <b>password</b> — manages password changes<br>4. <b>session</b> — setup/teardown tasks (logging, mounting home dirs)	EX342::PAM
+What are the PAM control flags and what does each do?	<b>required</b> — must succeed; continues processing stack even on failure<br><b>requisite</b> — must succeed; fails immediately on failure<br><b>sufficient</b> — if it succeeds, skip remaining modules of same type<br><b>optional</b> — result only matters if it's the only module in the stack<br><b>include</b> — pull in rules from another PAM config file	EX342::PAM
+Where are PAM configuration files located?	<code>/etc/pam.d/</code> — one file per service (e.g., <code>sshd</code>, <code>login</code>, <code>su</code>, <code>sudo</code>)<br>The two key shared files are <code>system-auth</code> (local auth) and <code>password-auth</code> (remote/network auth).	EX342::PAM
+Where are PAM module libraries located?	<code>/usr/lib64/security/</code><br>Each <code>.so</code> file is a PAM module (e.g., <code>pam_unix.so</code>, <code>pam_sss.so</code>).	EX342::PAM
+Where are PAM supplemental configuration files (for modules like pam_access, pam_limits)?	<code>/etc/security/</code><br>Contains: <code>access.conf</code>, <code>limits.conf</code>, <code>time.conf</code>, <code>pwquality.conf</code>, <code>faillock.conf</code>, etc.	EX342::PAM
+What is <code>authselect</code> and why should you use it on RHEL 8?	<code>authselect</code> is the RHEL 8 replacement for <code>authconfig</code>. It manages PAM profiles safely — direct edits to PAM files can be overwritten by authselect operations.<br><code>authselect current</code> — show active profile<br><code>authselect list</code> — list available profiles<br><code>authselect select sssd with-mkhomedir --force</code> — apply a profile	EX342::PAM
+How do you enable the <code>pam_faillock</code> module via authselect?	<code>authselect select sssd with-faillock --force</code><br>This configures account lockout after failed login attempts. Configure details in <code>/etc/security/faillock.conf</code>.	EX342::PAM
+How do you enable <code>pam_access</code> restrictions via authselect?	<code>authselect enable-feature with-pamaccess</code><br>Then configure access rules in <code>/etc/security/access.conf</code>.	EX342::PAM
+What replaced <code>pam_tally2</code> in RHEL 8?	<code>pam_faillock</code>. It provides account lockout after failed attempts with more flexibility.<br>View failures: <code>faillock --user username</code><br>Reset failures: <code>faillock --user username --reset</code>	EX342::PAM
+What log file records PAM authentication events?	<code>/var/log/secure</code><br>Also: <code>journalctl -t pam --since "1 hour ago"</code>	EX342::PAM
+What is a critical safety precaution when editing PAM files?	<b>Always keep a root shell open</b> in a separate terminal. A misconfigured PAM file can lock all users (including root) out of the system.	EX342::PAM
+What does <code>pam_unix.so</code> do?	Handles traditional password authentication using <code>/etc/passwd</code> and <code>/etc/shadow</code>. It's the default local authentication module.	EX342::PAM
+What does <code>pam_sss.so</code> do?	Provides PAM authentication through SSSD (System Security Services Daemon), which connects to LDAP, Kerberos, or Active Directory backends.	EX342::PAM
+What does <code>pam_access.so</code> do?	Restricts login access based on user/group and origin (IP, hostname, tty). Rules are defined in <code>/etc/security/access.conf</code>.<br>Format: <code>+|-:user/group:origin</code>	EX342::PAM
+What does <code>pam_limits.so</code> do?	Sets resource limits per user or group (max processes, open files, memory). Configured in <code>/etc/security/limits.conf</code> and <code>/etc/security/limits.d/</code>.	EX342::PAM
+What does <code>pam_pwquality.so</code> do?	Enforces password complexity requirements (length, character classes, dictionary checks). Configured in <code>/etc/security/pwquality.conf</code>.	EX342::PAM
+How do you debug PAM issues for a specific service?	1. Check <code>/var/log/secure</code> for error messages<br>2. <code>journalctl -t pam</code> for PAM-specific journal entries<br>3. Review the service's PAM file: <code>cat /etc/pam.d/sshd</code><br>4. Add <code>pam_debug.so</code> temporarily to the PAM stack for verbose output	EX342::PAM
+What is SSSD and what does it do?	System Security Services Daemon — provides a unified interface for PAM, NSS, and sudo to talk to identity/authentication backends (LDAP, Kerberos, Active Directory, FreeIPA). It also caches credentials for offline login.	EX342::LDAP_Kerberos
+Where is the SSSD configuration file?	<code>/etc/sssd/sssd.conf</code> (must be mode 0600, owned by root)	EX342::LDAP_Kerberos
+Where are SSSD log files?	<code>/var/log/sssd/</code><br>Key files: <code>sssd.log</code>, <code>sssd_&lt;domain&gt;.log</code>, <code>sssd_pam.log</code>, <code>sssd_nss.log</code>, <code>ldap_child.log</code>	EX342::LDAP_Kerberos
+How do you increase SSSD debug level for troubleshooting?	<code>sssctl debug-level 6</code><br>or add <code>debug_level = 6</code> to the relevant section in <code>/etc/sssd/sssd.conf</code> and restart.	EX342::LDAP_Kerberos
+How do you clear the SSSD cache?	<code>sss_cache -E</code> (expire all entries)<br>or fully wipe: <code>systemctl stop sssd && rm -rf /var/lib/sss/db/* /var/lib/sss/mc/* && systemctl start sssd</code>	EX342::LDAP_Kerberos
+What command checks SSSD domain status?	<code>sssctl domain-list</code> — list configured domains<br><code>sssctl domain-status example.com</code> — show online/offline status	EX342::LDAP_Kerberos
+How do you test if SSSD can resolve a user?	<code>id user@domain.com</code><br><code>getent passwd user@domain.com</code><br>If it fails, clear cache with <code>sss_cache -E</code> and retry.	EX342::LDAP_Kerberos
+What is <code>kinit</code> and how do you use it?	Obtains a Kerberos Ticket Granting Ticket (TGT) from the KDC.<br><code>kinit user@REALM</code> — authenticate and get TGT<br><code>kinit -k</code> — authenticate using the host keytab<br><code>kinit -V user@REALM</code> — verbose mode	EX342::LDAP_Kerberos
+What does <code>klist</code> show?	Lists active Kerberos tickets in the credential cache — shows principal, expiration times, and service principals.<br><code>klist</code> — current user<br><code>klist -kte</code> — contents of the keytab file with encryption types	EX342::LDAP_Kerberos
+What does <code>kdestroy</code> do?	Destroys all Kerberos tickets in the current credential cache.<br><code>kdestroy</code> — destroy default cache<br><code>kdestroy -A</code> — destroy all caches	EX342::LDAP_Kerberos
+How do you enable Kerberos trace output for debugging?	<code>KRB5_TRACE=/dev/stderr kinit user@REALM</code><br>This produces detailed trace output showing each step of the Kerberos exchange.	EX342::LDAP_Kerberos
+Where is the Kerberos configuration file?	<code>/etc/krb5.conf</code><br>Contains realm definitions, KDC addresses, domain-to-realm mappings, and encryption settings.	EX342::LDAP_Kerberos
+Where is the Kerberos keytab file?	<code>/etc/krb5.keytab</code><br>Contains host keys used for machine authentication. Use <code>klist -kte</code> to inspect. KVNO must match what the KDC expects.	EX342::LDAP_Kerberos
+What does <code>kvno</code> do?	Requests a Kerberos service ticket and displays the Key Version Number. Useful for verifying that the keytab KVNO matches the KDC.<br><code>kvno host/server.example.com@REALM</code>	EX342::LDAP_Kerberos
+What command joins a RHEL system to an AD/IdM domain?	<code>realm join example.com -U Administrator</code><br>This configures SSSD, Kerberos, and PAM automatically.	EX342::LDAP_Kerberos
+How do you list the current realm/domain membership?	<code>realm list</code><br>Shows configured domains, permitted logins, and login policy.	EX342::LDAP_Kerberos
+How do you leave a domain?	<code>realm leave example.com</code>	EX342::LDAP_Kerberos
+How do you permit specific AD/IdM users or groups to log in?	<code>realm permit user@example.com</code><br><code>realm permit -g "Linux Admins@example.com"</code><br><code>realm permit --all</code> (allow everyone, for testing)	EX342::LDAP_Kerberos
+What is the troubleshooting order for SSSD/Kerberos/LDAP authentication failures?	1. <b>DNS</b> — can the client resolve the KDC/LDAP server?<br>2. <b>Time sync</b> — Kerberos requires clocks within 5 minutes<br>3. <b>Kerberos</b> — can <code>kinit</code> get a TGT?<br>4. <b>LDAP</b> — can SSSD query the directory?<br>5. <b>Access control</b> — realm permit, GPO, HBAC rules	EX342::LDAP_Kerberos
+What does <code>ldapsearch</code> do and how do you use it for troubleshooting?	Tests LDAP connectivity and queries directly.<br><code>ldapsearch -x -H ldap://server -b "dc=example,dc=com" "(uid=testuser)"</code><br><code>-x</code>: simple bind, <code>-H</code>: server URI, <code>-b</code>: search base	EX342::LDAP_Kerberos
+How do you install an IdM (FreeIPA) client on RHEL 8?	<code>dnf install ipa-client -y</code><br><code>ipa-client-install --server=idm.example.com --domain=example.com --realm=EXAMPLE.COM --principal=admin --mkhomedir</code>	EX342::LDAP_Kerberos
+What does <code>oddjobd</code> do in the context of IdM/SSSD?	Handles automatic home directory creation for LDAP/IdM users on first login. Enabled via authselect with-mkhomedir feature.<br><code>systemctl enable --now oddjobd</code>	EX342::LDAP_Kerberos
+What is the "Preauthentication failed" error in SSSD/Kerberos?	Usually means the host keytab (<code>/etc/krb5.keytab</code>) is out of sync with the KDC. Fix by leaving and rejoining the domain, or using <code>adcli update</code> to refresh machine credentials.	EX342::LDAP_Kerberos
+What is SystemTap?	A tracing and probing tool for monitoring kernel and application activity on a running Linux system. It compiles user-written scripts into kernel modules for real-time data extraction.	EX342::SystemTap
+What packages are required for SystemTap on RHEL 8?	<code>systemtap</code> — the main tool (<code>stap</code>, <code>staprun</code>)<br><code>systemtap-runtime</code> — runtime for executing modules<br><code>kernel-devel</code> — kernel headers for compilation<br><code>kernel-debuginfo</code> — debug symbols<br><code>kernel-debuginfo-common</code> — shared debug data	EX342::SystemTap
+What tool automatically installs the correct kernel debug packages for SystemTap?	<code>stap-prep</code><br>Downloads and installs matching <code>kernel-debuginfo</code> packages from appropriate repositories.	EX342::SystemTap
+What are the 5 passes (stages) of the <code>stap</code> command?	<b>Pass 1</b>: Parse the script and library tapsets<br><b>Pass 2</b>: Analyze (elaborate) — resolve symbols and probes<br><b>Pass 3</b>: Translate to C source code<br><b>Pass 4</b>: Compile C into a kernel module (.ko)<br><b>Pass 5</b>: Load module and run	EX342::SystemTap
+How do you compile a SystemTap script into a kernel module without running it?	<code>stap -v -p 4 script.stp</code><br>The <code>-p 4</code> flag stops after pass 4 (compilation), producing a <code>.ko</code> file.	EX342::SystemTap
+How do you compile a SystemTap module with a custom name?	<code>stap -v -p 4 -m my_module script.stp</code><br>The <code>-m</code> option names the output module. Recommended prefix: <code>stap_</code>.	EX342::SystemTap
+How do you compile a SystemTap module for a different kernel version?	<code>stap -v -p 4 -r &lt;kernel_version&gt; script.stp</code><br>The <code>-r</code> option specifies the target kernel version. Used for cross-compilation.	EX342::SystemTap
+How do you execute a pre-compiled SystemTap module?	<code>staprun /path/to/module.ko</code><br>This loads and runs the module without needing the full <code>stap</code> toolchain on the target system.	EX342::SystemTap
+What is the difference between <code>stap</code> and <code>staprun</code>?	<code>stap</code>: Full front-end — parses, compiles, and runs scripts. Requires <code>kernel-devel</code> and <code>kernel-debuginfo</code>.<br><code>staprun</code>: Back-end only — loads and runs pre-compiled <code>.ko</code> modules. Minimal requirements.	EX342::SystemTap
+What are the <code>stapdev</code> and <code>stapusr</code> groups?	<b>stapdev</b>: Can use <code>stap</code> to compile and run scripts (effectively grants root access).<br><b>stapusr</b>: Can only use <code>staprun</code> to run pre-compiled modules from <code>/lib/modules/&lt;version&gt;/systemtap/</code>.	EX342::SystemTap
+Write a basic SystemTap script that probes VFS reads.	<code>probe kernel.function("vfs_read") {<br>&nbsp;&nbsp;printf("read by %s (pid %d)\n", execname(), pid())<br>&nbsp;&nbsp;exit()<br>}</code><br>Run: <code>stap -v script.stp</code>	EX342::SystemTap
+How do you run a one-liner SystemTap script from the command line?	<code>stap -v -e 'probe kernel.function("vfs_read") { printf("read performed\n"); exit() }'</code><br>The <code>-e</code> flag passes a script string directly.	EX342::SystemTap
+How do you list all available SystemTap probes matching a pattern?	<code>stap -l 'syscall.*'</code> — list matching probe points<br><code>stap -L 'syscall.write'</code> — list probe with available variables	EX342::SystemTap
+Where are SystemTap example scripts located?	<code>/usr/share/systemtap/examples/</code><br>Contains ready-to-use scripts organized by category (io, network, process, etc.).	EX342::SystemTap
+What does the <code>-k</code> flag do in <code>stap</code>?	Keeps temporary files (C source and compiled kernel module) in <code>/tmp/stapXXXX/</code> instead of deleting them after the session ends. Useful for debugging compilation issues.	EX342::SystemTap
+What does the <code>-g</code> (guru mode) flag do in <code>stap</code>?	Enables guru mode — allows binding to blacklisted probes, writing to kernel memory, and using embedded C code in scripts. <b>Dangerous</b> — use only when needed.	EX342::SystemTap
+What is SystemTap's flight recorder mode?	<code>stap -F script.stp</code><br>Runs the script as a background process with a kernel memory buffer. Reconnect later with <code>staprun -A &lt;module_name&gt;</code> to view recent buffered output.	EX342::SystemTap
+How do you send SystemTap output to a file with log rotation?	<code>stap -o /tmp/output.log -S 5,3 script.stp</code><br><code>-o</code>: output file, <code>-S 5,3</code>: max 5 MB per file, keep 3 files.	EX342::SystemTap
+What is the iSCSI default port and IQN naming convention?	Port: <b>3260/tcp</b><br>IQN format: <code>iqn.YYYY-MM.com.example:targetname</code><br>e.g., <code>iqn.2024-01.com.example:storage1</code>	EX342::iSCSI
+What are the four types of iSCSI backstores in targetcli?	1. <b>block</b> — uses a block device (LVM LV, disk partition)<br>2. <b>fileio</b> — uses a file as backing store<br>3. <b>pscsi</b> — pass-through to physical SCSI device<br>4. <b>ramdisk</b> — uses RAM (volatile)	EX342::iSCSI
+What does the <code>targetcli saveconfig</code> command do?	Saves the iSCSI target configuration to <code>/etc/target/saveconfig.json</code> so it persists across reboots. Always run this after making changes in targetcli.	EX342::iSCSI
+What SELinux booleans are related to iSCSI?	Check with <code>getsebool -a | grep iscsi</code><br>Common: <code>iscsi_use_fusefs</code><br>Also check for AVC denials: <code>ausearch -m avc -ts recent | grep iscsi</code>	EX342::iSCSI
