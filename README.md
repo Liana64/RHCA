@@ -8,9 +8,9 @@ I've learned many invaluable things about the internals of Linux while studying 
 
 | Name                                                          | Exam  | Notes       | Anki        |
 | ------------------------------------------------------------- | ----- | ----------- | ----------- |
-| Certified System Administrator                                | EX200 | Finished    | N/A         |
-| Certified Engineer                                            | EX294 | Finished    | N/A         |
-| Certified Specialist in Linux Diagnostics and Troubleshooting | EX342 | In Progress | In Progress |
+| Certified System Administrator                                | EX200 | Finished    | -           |
+| Certified Engineer                                            | EX294 | Finished    | -           |
+| Certified Specialist in Linux Diagnostics and Troubleshooting | EX342 | Finished    | -           |
 | Certified Specialist in Security: Linux                       | EX415 | Planned     | Planned     |
 | Certified Specialist in Performance Tuning                    | EX442 | Planned     | Planned     |
 | Certified Specialist in Services Management and Automation    | EX358 | Planned     | Planned     |
@@ -24,9 +24,8 @@ I am targeting Red Hat Certified Architect (RHCA) by the end of 2026.
 | ------------------------------------------------------------- | ----- | ---------------- | ------- | ------------- |
 | Certified System Administrator                                | EX200 | Pass             | 286/300 | October 2025  |
 | Certified Engineer                                            | EX294 | Pass             | 238/300 | December 2025 |
-| Certified Specialist in Linux Diagnostics and Troubleshooting | EX342 | Fail             | 180/300 | March 2026    |
-| Certified Specialist in Linux Diagnostics and Troubleshooting | EX342 | Retake Scheduled |         | May 2026      |
-| Certified Specialist in Security: Linux                       | EX415 | Planned          |         | May 2026      |
+| Certified Specialist in Linux Diagnostics and Troubleshooting | EX342 | Pass             | 228/300 | May 2026    |
+| Certified Specialist in Security: Linux                       | EX415 | Scheduled        |         | May 2026      |
 | Certified Specialist in Performance Tuning                    | EX442 | Planned          |         | July 2026     |
 | Certified Specialist in Services Management and Automation    | EX358 | Planned          |         | October 2026  |
 | Certified OpenShift Administrator                             | EX280 | Planned          |         | December 2026 |
