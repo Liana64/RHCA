@@ -4,6 +4,9 @@ A list of useful Linux shortcuts.
 
 **Basic Shortcuts**
 ```sh
+$(which grep)             # Evaluate bash in-line
+$((512000000000/1024^3))  # Evaluate math in-line
+
 Ctrl-L                    # Clear terminal
 Ctrl-D                    # Delete character or exit terminal
 Ctrl-A                    # Go to beginning of line
