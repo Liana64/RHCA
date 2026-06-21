@@ -11,7 +11,8 @@ If you are a Red Hat employee and something about this repository is not allowed
 please send your comments to [mail@lianas.org](mailto:mail@lianas.org) and I will
 make any changes required. 
 
-## Available study materials in this repository
+
+## Available notes
 
 | Name                                                          | Exam  | Notes       |
 | ------------------------------------------------------------- | ----- | ----------- |
@@ -23,9 +24,10 @@ make any changes required.
 | Certified Specialist in Services Management and Automation    | EX358 | Planned     |
 | Certified OpenShift Administrator                             | EX280 | Planned     |
 
-## My exam schedule and results
 
-I am targeting Red Hat Certified Architect (RHCA) by the end of 2026.
+## Exam schedule and results
+
+I am targeting Red Hat Certified Architect in Enterprise Linux (RHCA) by the end of 2026.
 
 | Certification Name                                            | Exam  | Result           | Score   | Date           |
 | ------------------------------------------------------------- | ----- | ---------------- | ------- | -------------- |
