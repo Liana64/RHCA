@@ -22,7 +22,6 @@ make any changes required.
 | Certified Specialist in Security: Linux                       | EX415 | Finished    |
 | Certified Specialist in Performance Tuning                    | EX442 | Planned     |
 | Certified Specialist in Services Management and Automation    | EX358 | Planned     |
-| Certified OpenShift Administrator                             | EX280 | Planned     |
 
 
 ## Exam schedule and results
@@ -35,5 +34,5 @@ I am targeting Red Hat Certified Architect in Enterprise Linux (RHCA) by the end
 | Certified Engineer                                            | EX294 | Pass             | 238/300 | December 2025  |
 | Certified Specialist in Linux Diagnostics and Troubleshooting | EX342 | Pass             | 228/300 | May 2026       |
 | Certified Specialist in Security: Linux                       | EX415 | Pass             | 261/300 | June 2026      |
-| Certified Specialist in Services Management and Automation    | EX358 | Planned          | -       | September 2026 |
-| Certified Specialist in Performance Tuning                    | EX442 | Planned          | -       | July 2026      |
+| Certified Specialist in Performance Tuning                    | EX442 | Planned          | -       | September 2026 |
+| Certified Specialist in Services Management and Automation    | EX358 | Planned          | -       | December 2026  |
