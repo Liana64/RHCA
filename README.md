@@ -17,8 +17,8 @@ make any changes required.
 | Name                                                          | Exam  | Notes       |
 | ------------------------------------------------------------- | ----- | ----------- |
 | Certified System Administrator                                | EX200 | Finished    |
-| Certified Engineer                                            | EX294 | Finished    |
-| Certified Specialist in Linux Diagnostics and Troubleshooting | EX342 | Finished    |
+| ~~Certified Engineer~~<br>Certified Advanced System Administrator in Ansible                                            | EX294 | Finished    |
+| ~~Certified Specialist in Linux Diagnostics and Troubleshooting~~<br>Certified Advanced System Administrator in Enterprise Linux | EX342 | Finished    |
 | Certified Specialist in Security: Linux                       | EX415 | Finished    |
 | Certified Specialist in Performance Tuning                    | EX442 | In Progress |
 | Certified Specialist in Cloud Infrastructure                  | EX210 | Planned     |
@@ -31,8 +31,8 @@ I am targeting Red Hat Certified Architect in Enterprise Linux (RHCA) by the end
 | Certification Name                                            | Exam  | Result           | Score   | Date           |
 | ------------------------------------------------------------- | ----- | ---------------- | ------- | -------------- |
 | Certified System Administrator                                | EX200 | Pass             | 286/300 | October 2025   |
-| Certified Engineer                                            | EX294 | Pass             | 238/300 | December 2025  |
-| Certified Specialist in Linux Diagnostics and Troubleshooting | EX342 | Pass             | 228/300 | May 2026       |
+| ~~Certified Engineer~~<br>Certified Advanced System Administrator in Ansible                                            | EX294 | Pass             | 238/300 | December 2025  |
+| ~~Certified Specialist in Linux Diagnostics and Troubleshooting~~<br>Certified Advanced System Administrator in Enterprise Linux | EX342 | Pass             | 228/300 | May 2026       |
 | Certified Specialist in Security: Linux                       | EX415 | Pass             | 261/300 | June 2026      |
 | Certified Specialist in Performance Tuning                    | EX442 | Planned          | -       | October 2026   |
 | Certified Specialist in Cloud Infrastructure                  | EX210 | Planned          | -       | December 2026  |
