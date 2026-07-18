@@ -20,7 +20,7 @@ make any changes required.
 | Certified Engineer                                            | EX294 | Finished    |
 | Certified Specialist in Linux Diagnostics and Troubleshooting | EX342 | Finished    |
 | Certified Specialist in Security: Linux                       | EX415 | Finished    |
-| Certified Specialist in Performance Tuning                    | EX442 | Planned     |
+| Certified Specialist in Performance Tuning                    | EX442 | In Progress |
 | Certified Specialist in Cloud Infrastructure                  | EX210 | Planned     |
 
 
